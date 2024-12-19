@@ -7,7 +7,14 @@
   <script>
     function sendMessage() {
       if (window.ReactNativeWebView) {
-        window.ReactNativeWebView.postMessage('Hola Mundo desde la WebView');
+        const message = {
+          type: "request",
+          request: {
+            id: 'uhujdkgvai',
+            operation: 'getSystemInfo'
+          }
+        };
+        window.ReactNativeWebView.postMessage(JSON.stringify(message));
       }
     }
     window.onload = sendMessage;
