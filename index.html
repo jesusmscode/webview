@@ -17,10 +17,25 @@
         window.ReactNativeWebView.postMessage(JSON.stringify(message));
       }
     }
-    window.onload = sendMessage;
+
+    function handleMessage(event) {
+      const data = JSON.parse(event.data);
+      if (data.type === "response" && data.request.id === 'uhujdkgvai') {
+        const response = data.response;
+        document.getElementById('deviceId').textContent = response.deviceId;
+        document.getElementById('model').textContent = response.model;
+      }
+    }
+
+    window.onload = function() {
+      sendMessage();
+      window.addEventListener('message', handleMessage);
+    };
   </script>
 </head>
 <body>
   <h1>Hola Mundo</h1>
+  <p>Device ID: <span id="deviceId"></span></p>
+  <p>Model: <span id="model"></span></p>
 </body>
 </html>
